@@ -1,0 +1,14 @@
+D:\VS Code projects\FishersSite\bin\Debug\netcoreapp2.2\FishersSite.deps.json
+D:\VS Code projects\FishersSite\bin\Debug\netcoreapp2.2\FishersSite.runtimeconfig.json
+D:\VS Code projects\FishersSite\bin\Debug\netcoreapp2.2\FishersSite.runtimeconfig.dev.json
+D:\VS Code projects\FishersSite\bin\Debug\netcoreapp2.2\FishersSite.dll
+D:\VS Code projects\FishersSite\bin\Debug\netcoreapp2.2\FishersSite.pdb
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.csprojAssemblyReference.cache
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.RazorAssemblyInfo.cache
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.RazorAssemblyInfo.cs
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.AssemblyInfoInputs.cache
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.AssemblyInfo.cs
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.RazorTargetAssemblyInfo.cache
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.dll
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.pdb
+D:\VS Code projects\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.csproj.CoreCompileInputs.cache
