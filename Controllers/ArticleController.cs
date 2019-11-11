@@ -108,7 +108,7 @@ namespace FishersSite.Controllers
                 return BadRequest(ModelState);
             }
             var newArticle = await _articleService.PostArticle(article);
-            return Ok(article);
+            return Ok(_articleService.GetArticle((int)newArticle.Id));
         }
 
         [HttpPut]
