@@ -12389,11 +12389,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\VS Code projects\\FishersSite\\FishersSite.csproj",
+      "projectUniqueName": "d:\\FishersSite\\Backend\\FishersSite.csproj",
       "projectName": "FishersSite",
-      "projectPath": "d:\\VS Code projects\\FishersSite\\FishersSite.csproj",
+      "projectPath": "d:\\FishersSite\\Backend\\FishersSite.csproj",
       "packagesPath": "C:\\Users\\Dainius\\.nuget\\packages\\",
-      "outputPath": "d:\\VS Code projects\\FishersSite\\obj\\",
+      "outputPath": "d:\\FishersSite\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
