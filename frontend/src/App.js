@@ -2,20 +2,27 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UsersTable from "./components/usersTable";
 import Home from "./components/home";
+import Articles from "./components/articles";
+import MyArticles from "./components/myArticles";
+import MyComments from "./components/myComments";
 
 function App() {
-    const users = [
-        { id: 1, name: "name", surname: "surname" },
-        { id: 2, name: "name", surname: "surname" },
-        { id: 3, name: "name", surname: "surname" }
-    ];
     return (
         <Router>
             <div>
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
-                    <Route path="/users">
-                        <UsersTable users={users} />;
+                    <Route exact path="/users">
+                        <UsersTable />;
+                    </Route>
+                    <Route path="/articles">
+                        <Articles />
+                    </Route>
+                    <Route path="/users/:id/articles">
+                        <MyArticles />
+                    </Route>
+                    <Route path="/users/:id/comments">
+                        <MyComments />
                     </Route>
                 </Switch>
             </div>

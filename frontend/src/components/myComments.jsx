@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import Navbar from "./navbar";
 
-class Home extends Component {
+class MyComments extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
     render() {
         return (
             <div>
                 <Navbar />
-                <h4>I am at home</h4>
             </div>
         );
     }
 }
 
-export default Home;
+export default MyComments;

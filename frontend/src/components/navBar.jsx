@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class NavBar extends Component {
+class Navbar extends Component {
     render() {
         return (
             <div>
@@ -18,6 +18,27 @@ class NavBar extends Component {
                                     Users
                                 </Link>
                             </li>
+                            <li>
+                                <Link className="nav-link" to="/articles">
+                                    Articles
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    className="nav-link"
+                                    to="/users/:id/articles"
+                                >
+                                    My Articles
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    className="nav-link"
+                                    to="/users/:id/comments"
+                                >
+                                    My Comments
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -27,4 +48,4 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+export default Navbar;

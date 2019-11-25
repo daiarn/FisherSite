@@ -2,42 +2,44 @@ import React, { Component } from "react";
 import Navbar from "./navbar";
 import axios from "axios";
 
-class UsersTable extends Component {
+class Articles extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: null,
+            user: null,
             isLoaded: false
         };
     }
 
     componentDidMount() {
-        axios.get("https://localhost:5001/api/users").then(res => {
+        axios.get("https://localhost:5001/api/articles").then(res => {
             const data = res.data;
             this.setState({ data: data, isLoaded: true });
         });
     }
 
     render() {
-        const { isLoaded, data } = this.state;
+        const { data, isLoaded } = this.state;
+        console.log(data);
         return (
             <div>
                 <Navbar />
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>name</th>
-                            <th>surname</th>
-                            <th>username</th>
+                            <th>Title</th>
+                            <th>Text</th>
+                            <th>Comments Count</th>
                         </tr>
                     </thead>
                     <tbody>
                         {isLoaded ? (
-                            data.map(user => (
-                                <tr key={user.id}>
-                                    <td>{user.name}</td>
-                                    <td>{user.surname}</td>
-                                    <td>{user.username}</td>
+                            data.map(article => (
+                                <tr key={article.id}>
+                                    <td>{article.title}</td>
+                                    <td>{article.text}</td>
+                                    <td>{article.comments.length}</td>
                                 </tr>
                             ))
                         ) : (
@@ -50,4 +52,4 @@ class UsersTable extends Component {
     }
 }
 
-export default UsersTable;
+export default Articles;
