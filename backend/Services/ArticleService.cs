@@ -41,7 +41,7 @@ namespace FishersSite.Services
                 UserId = article.User.UserId,
                 Comments = comments.Where(c => c.ArticleId == article.Id).ToList()
             }).ToList();
-            return articles;  
+            return articles;
         }
         private ICollection<CommentDTO> GetComments()
         {
@@ -56,13 +56,14 @@ namespace FishersSite.Services
             return comments;
         }
         public ICollection<CommentDTO> GetArticleComments(int id)
-        {           
+        {
             return GetComments().Where(c => c.ArticleId == id).ToList();
         }
 
         public async Task<ArticleDTO> PostArticle(Article article)
         {
-            User user = _context.Users.FirstOrDefault(u => u.UserId == article.User.UserId);
+            User user = _context.Users.FirstOrDefault(u => u.UserId == article.User.UserId);//UserId neturim kažkodėl? 
+
             if (user == null)
             {
                 return null;
@@ -81,7 +82,7 @@ namespace FishersSite.Services
                 return null;
             }
             if (article.Title != null)
-            {               
+            {
                 existingArticle.Title = article.Title;
             }
             if (article.Text != null)

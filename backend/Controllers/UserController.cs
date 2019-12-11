@@ -29,7 +29,7 @@ namespace FishersSite.Controllers
         private IUserService _userService;
         private readonly AppSettings _appSettings;
         private IMapper _mapper;
-        
+
         public UserController(IUserService userService, IMapper mapper, IOptions<AppSettings> appSettings)
         {
             _userService = userService;
@@ -50,7 +50,7 @@ namespace FishersSite.Controllers
                     Errors = authResponse.Errors
                 });
             }
-            
+
             return Ok(new AuthSuccessResponse
             {
                 Token = authResponse.Token,
@@ -110,7 +110,8 @@ namespace FishersSite.Controllers
             });
         }
 
-        [Authorize(Roles = Role.Admin)]
+        // [Authorize(Roles = Role.Admin)]
+        //[AllowAnonymous]
         [HttpGet]
         [Route("Users")]
         public ActionResult<ICollection<UserDTO>> Get()
@@ -130,7 +131,7 @@ namespace FishersSite.Controllers
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(id, userId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             if (id <= 0)
             {
@@ -151,7 +152,7 @@ namespace FishersSite.Controllers
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(id, userId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             var articles = _userService.GetUserArticles(id);
             if (articles == null)
@@ -168,7 +169,7 @@ namespace FishersSite.Controllers
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(id, userId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             var comments = _userService.GetUserCommentss(id);
             if (comments == null)
@@ -185,7 +186,7 @@ namespace FishersSite.Controllers
             var senderId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(userId, senderId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             ArticleDTO article = _userService.GetUserArticles(userId).FirstOrDefault(a => a.Id == articleId);
             if (article == null)
@@ -202,7 +203,7 @@ namespace FishersSite.Controllers
             var senderId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(userId, senderId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             CommentDTO comment = _userService.GetUserCommentss(userId).FirstOrDefault(c => c.Id == commentId);
             if (comment == null)
@@ -219,7 +220,7 @@ namespace FishersSite.Controllers
             var senderId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(userId, senderId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             var comments = _userService.GetUserArticleComments(userId, articleId);
             if (comments == null)
@@ -236,7 +237,7 @@ namespace FishersSite.Controllers
             var senderId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(userId, senderId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             var comment = _userService.GetUserArticleComments(userId, articleId).FirstOrDefault(c => c.Id == commentId);
             if (comment == null)
@@ -253,7 +254,7 @@ namespace FishersSite.Controllers
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(id, userId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             if (user == null)
             {
@@ -278,7 +279,7 @@ namespace FishersSite.Controllers
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
             if (!_userService.isSameUser(id, userId))
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You are not this user"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
             }
             if (id <= 0)
             {

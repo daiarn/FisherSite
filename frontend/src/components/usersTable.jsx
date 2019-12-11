@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Navbar from "./navbar";
-import axios from "axios";
+import { userService } from "../services/userService";
 
 class UsersTable extends Component {
     constructor(props) {
@@ -12,17 +11,15 @@ class UsersTable extends Component {
     }
 
     componentDidMount() {
-        axios.get("https://localhost:5001/api/users").then(res => {
-            const data = res.data;
-            this.setState({ data: data, isLoaded: true });
-        });
+        userService
+            .getAllUsers()
+            .then(data => this.setState({ data: data, isLoaded: true }));
     }
 
     render() {
         const { isLoaded, data } = this.state;
         return (
             <div>
-                <Navbar />
                 <table className="table">
                     <thead>
                         <tr>

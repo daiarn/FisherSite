@@ -24,7 +24,7 @@ namespace FishersSite.Controllers
             _articleService = articleService;
         }
 
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
         [HttpGet]
         [Route("Articles")]
         public ActionResult<ICollection<ArticleDTO>> Get()
@@ -40,7 +40,7 @@ namespace FishersSite.Controllers
             var userOwnsPost = _articleService.UserOwnsArticle(id, userId);
             if (!userOwnsPost)
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You do not own this article"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
             }
             if (id <= 0)
             {
@@ -53,7 +53,7 @@ namespace FishersSite.Controllers
             }
             return Ok(article);
         }
-        
+
         [HttpGet]
         [Route("Articles/{id}/Comments")]
         public ActionResult<IEnumerable<CommentDTO>> GetArticleComments(int id)
@@ -62,7 +62,7 @@ namespace FishersSite.Controllers
             var userOwnsPost = _articleService.UserOwnsArticle(id, userId);
             if (!userOwnsPost)
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You do not own this article"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
             }
             var comments = _articleService.GetArticleComments(id);
             if (comments == null)
@@ -80,7 +80,7 @@ namespace FishersSite.Controllers
             var userOwnsPost = _articleService.UserOwnsArticle(articleId, userId);
             if (!userOwnsPost)
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You do not own this article"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
             }
             if (articleId <= 0 || commentId <= 0)
             {
@@ -108,6 +108,10 @@ namespace FishersSite.Controllers
                 return BadRequest(ModelState);
             }
             var newArticle = await _articleService.PostArticle(article);
+            if (newArticle == null)
+            {
+                return NotFound();
+            }
             return Ok(_articleService.GetArticle((int)newArticle.Id));
         }
 
@@ -119,7 +123,7 @@ namespace FishersSite.Controllers
             var userOwnsPost = _articleService.UserOwnsArticle(id, userId);
             if (!userOwnsPost)
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You do not own this article"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
             }
             if (article == null)
             {
@@ -141,7 +145,7 @@ namespace FishersSite.Controllers
             var userOwnsPost = _articleService.UserOwnsArticle(id, userId);
             if (!userOwnsPost)
             {
-                return BadRequest(new ErrorResponse(new ErrorModel{Message = "You do not own this article"}));
+                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
             }
             if (id <= 0)
             {
