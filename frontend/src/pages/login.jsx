@@ -1,7 +1,4 @@
 import React from "react";
-//import { Formik, Field, Form, ErrorMessage } from "formik";
-//import * as Yup from "yup";
-import { history } from "../helpers/history";
 
 import { authenticationService } from "../services/authentication";
 
@@ -9,17 +6,15 @@ class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
-        // redirect to home if already logged in
-        if (authenticationService.currentUserValue) {
-            history.goBack();
-            //history.replace("/");
-        }
-
         this.state = {
             username: "",
             password: "",
             isSubmitting: false
         };
+
+        if (authenticationService.currentUserValue) {
+            this.props.history.push("/");
+        }
     }
 
     hangleChange = event => {
@@ -31,15 +26,15 @@ class LoginPage extends React.Component {
         const { username, password, isSubmitting } = this.state;
         if (username.length <= 0 || password.length <= 0) return;
         this.setState({ isSubmitting: !isSubmitting });
-        authenticationService
-            .login(username, password)
-            .then(history.replace("/"));
+        authenticationService.login(username, password).then(() => {
+            window.location.reload();
+        });
     };
 
     render() {
         const { username, password, isSubmitting } = this.state;
         return (
-            <div>
+            <div className="App container">
                 <h2>Login</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">

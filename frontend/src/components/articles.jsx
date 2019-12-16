@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { articleService } from "../services/articleService";
 import { authenticationService } from "../services/authentication";
 import jwt from "jwt-decode";
-import Article from "./article";
 import {
     Input,
     FormGroup,
@@ -39,8 +38,7 @@ class Articles extends Component {
             },
             newArticleModal: false,
             editModalModal: false,
-            user: jwt(authenticationService.currentUserValue.token),
-            redirect: false
+            user: jwt(authenticationService.currentUserValue.token)
         };
     }
 
@@ -118,9 +116,6 @@ class Articles extends Component {
             this._refreshArticles();
         });
     }
-    displayInfo() {
-        this.setState({ redirect: !this.state.redirect });
-    }
     componentDidMount() {
         this._refreshArticles();
     }
@@ -131,10 +126,7 @@ class Articles extends Component {
     };
 
     render() {
-        const { data, isLoaded, user, redirect } = this.state;
-        if (redirect) {
-            return <Redirect to="/article" state={{ pass: "pass" }} />;
-        }
+        const { data, isLoaded, user } = this.state;
         return (
             <div>
                 <div className="App container">
@@ -245,20 +237,17 @@ class Articles extends Component {
                             {isLoaded ? (
                                 data.map(article => (
                                     <tr key={article.id}>
-                                        <td>{article.title}</td>
+                                        <td>
+                                            <Link
+                                                className="nav-link"
+                                                to={"/articles/" + article.id}
+                                            >
+                                                {article.title}
+                                            </Link>
+                                        </td>
                                         <td>{article.text}</td>
                                         <td>{article.comments.length}</td>
                                         <td>
-                                            <Button
-                                                color="primary"
-                                                size="sm"
-                                                className="mr-2"
-                                                onClick={this.displayInfo.bind(
-                                                    this
-                                                )}
-                                            >
-                                                Info
-                                            </Button>
                                             {user.id == article.userId ? (
                                                 <Button
                                                     color="success"
@@ -274,7 +263,7 @@ class Articles extends Component {
                                             ) : (
                                                 ""
                                             )}
-                                            {user.role == "Admin" ||
+                                            {user.role === "Admin" ||
                                             user.id == article.userId ? (
                                                 <Button
                                                     color="danger"

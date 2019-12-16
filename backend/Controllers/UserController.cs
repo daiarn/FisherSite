@@ -277,10 +277,15 @@ namespace FishersSite.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
-            if (!_userService.isSameUser(id, userId))
+            var isAdmin = HttpContext.User.Claims.Single(x => x.Type == ClaimTypes.Role).Value;
+            if (isAdmin != "Admin")
             {
-                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
+                if (!_userService.isSameUser(id, userId))
+                {
+                    return BadRequest(new ErrorResponse(new ErrorModel { Message = "You are not this user" }));
+                }
             }
+
             if (id <= 0)
             {
                 return NotFound();

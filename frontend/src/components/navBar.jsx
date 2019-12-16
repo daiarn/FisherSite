@@ -2,24 +2,62 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { authenticationService } from "../services/authentication";
 import jwt from "jwt-decode";
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem
+} from "reactstrap";
+import book from "../book.svg";
 
-class Navbar extends Component {
+class Navbarr extends Component {
+    constructor(props) {
+        super(props);
+
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            isOpen: false,
+            showNavbar: false
+        };
+
+        if (!authenticationService.currentUserValue) {
+            this.props.history.push("/");
+        }
+    }
+    toggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
     render() {
-        let isAdmin = false;
+        //let isAdmin = false;
+        let id = "";
         const currentUser = authenticationService.currentUserValue;
         if (currentUser) {
-            isAdmin = jwt(currentUser.token).role == "Admin";
+            const user = jwt(currentUser.token);
+            //isAdmin = user.role === "Admin";
+            id = user.id;
         }
+        if (!authenticationService.currentUserValue) {
+            this.props.history.push("/");
+        }
+
         return (
             <div>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <div className="container">
-                        <ul className="navbar-nav mr-aut">
-                            <li className="nav-item">
+                <Navbar color="light" light expand="md">
+                    <NavbarBrand href="/">
+                        <img src={book} width="100" height="50" alt="book" />
+                    </NavbarBrand>
+                    <NavbarToggler onClick={this.toggle} />
+                    <Collapse isOpen={this.state.isOpen} navbar>
+                        <Nav className="mr-aut" navbar>
+                            <NavItem>
                                 <Link className="nav-link" to="/">
                                     Home
                                 </Link>
-                            </li>
+                            </NavItem>
                             {!currentUser ? (
                                 <ul className="navbar-nav mr-aut">
                                     <li>
@@ -61,7 +99,7 @@ class Navbar extends Component {
                                     <li>
                                         <Link
                                             className="nav-link"
-                                            to="/users/:id/articles"
+                                            to={`/users/${id}/articles`}
                                         >
                                             My Articles
                                         </Link>
@@ -69,30 +107,24 @@ class Navbar extends Component {
                                     <li>
                                         <Link
                                             className="nav-link"
-                                            to="/users/:id/comments"
+                                            to={`/users/${id}/comments`}
                                         >
                                             My Comments
                                         </Link>
                                     </li>
+                                    <li>
+                                        <Link className="nav-link" to="/users">
+                                            Users
+                                        </Link>
+                                    </li>
                                 </ul>
                             )}
-
-                            {isAdmin ? (
-                                <li>
-                                    <Link className="nav-link" to="/users">
-                                        Users
-                                    </Link>
-                                </li>
-                            ) : (
-                                ""
-                            )}
-                        </ul>
-                    </div>
-                </nav>
-                <div>{this.props.children}</div>
+                        </Nav>
+                    </Collapse>
+                </Navbar>
             </div>
         );
     }
 }
 
-export default Navbar;
+export default Navbarr;

@@ -5,8 +5,9 @@ export function handleResponse(response) {
     //console.log(response);
     if (response.status !== 200) {
         if ([401, 403].indexOf(response.status) !== -1) {
+            //console.log(response.status);
             if (
-                response.status == 401 &&
+                response.status === "401" &&
                 authenticationService.currentUserValue
             ) {
                 authenticationService.refresh();

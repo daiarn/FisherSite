@@ -2,7 +2,7 @@ import { handleResponse } from "../helpers/handleResponse";
 import axios from "axios";
 import { authenticationService } from "../services/authentication";
 
-export const commentervice = {
+export const commentService = {
     getAllComments: getAllComments,
     postComment: postComment,
     putComment: putComment,
@@ -11,7 +11,9 @@ export const commentervice = {
 
 async function getAllComments() {
     const currentUser = authenticationService.currentUserValue;
-
+    if (authenticationService.refreshStatus) {
+        authenticationService.refresh();
+    }
     let response = await axios.get(`https://localhost:5001/api/comments`, {
         headers: {
             Authorization: `Bearer ${currentUser.token}`
@@ -21,7 +23,9 @@ async function getAllComments() {
 }
 async function postComment(comment) {
     const currentUser = authenticationService.currentUserValue;
-
+    if (authenticationService.refreshStatus) {
+        authenticationService.refresh();
+    }
     let response = await axios.post(
         `https://localhost:5001/api/comments`,
         comment,
@@ -35,7 +39,9 @@ async function postComment(comment) {
 }
 async function putComment(comment) {
     const currentUser = authenticationService.currentUserValue;
-
+    if (authenticationService.refreshStatus) {
+        authenticationService.refresh();
+    }
     let response = await axios.put(
         `https://localhost:5001/api/comments/${comment.id}`,
         comment,
@@ -49,7 +55,9 @@ async function putComment(comment) {
 }
 async function deleteComment(id) {
     const currentUser = authenticationService.currentUserValue;
-
+    if (authenticationService.refreshStatus) {
+        authenticationService.refresh();
+    }
     let response = await axios.delete(
         `https://localhost:5001/api/comments/${id}`,
         {

@@ -28,10 +28,10 @@ namespace FishersSite.Services
         }
         public async Task<AuthenticationDTO> Login(string username, string password)
         {
-             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return new AuthenticationDTO
                 {
-                    Errors = new[] {"Missing username or password"}
+                    Errors = new[] { "Missing username or password" }
                 };
 
             var user = _context.Users.SingleOrDefault(x => x.Username == username);
@@ -40,16 +40,16 @@ namespace FishersSite.Services
             if (user == null)
                 return new AuthenticationDTO
                 {
-                    Errors = new[] {"User does not exist"}
+                    Errors = new[] { "User does not exist" }
                 };
 
             // check if password is correct
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return new AuthenticationDTO
                 {
-                    Errors = new[] {"User/password combination is wrong"}
+                    Errors = new[] { "User/password combination is wrong" }
                 };
-            
+
             var verifiedUser = GetUsers().SingleOrDefault(x => x.Username == username);
             // authentication successful
             return await GenerateAuthenticationResultForUserAsync(verifiedUser);
@@ -60,13 +60,13 @@ namespace FishersSite.Services
             if (string.IsNullOrWhiteSpace(password))
                 return new AuthenticationDTO
                 {
-                    Errors = new[] {"Password is required"}
+                    Errors = new[] { "Password is required" }
                 };
 
             if (_context.Users.Any(x => x.Username == user.Username))
                 return new AuthenticationDTO
                 {
-                    Errors = new[] {"Username " + user.Username + " is already taken"}
+                    Errors = new[] { "Username " + user.Username + " is already taken" }
                 };
 
             byte[] passwordHash, passwordSalt;
@@ -87,57 +87,57 @@ namespace FishersSite.Services
         {
             var validatedToken = GetPrincipalFromToken(token);
 
-        if (validatedToken == null)
-        {
-            return new AuthenticationDTO {Errors = new[] {"Invalid Token"}};
-        }
+            if (validatedToken == null)
+            {
+                return new AuthenticationDTO { Errors = new[] { "Invalid Token" } };
+            }
 
-        var expiryDateUnix =
-            long.Parse(validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
+            var expiryDateUnix =
+                long.Parse(validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
 
-        var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-            .AddSeconds(expiryDateUnix);
+            var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                .AddSeconds(expiryDateUnix);
 
-        if (expiryDateTimeUtc > DateTime.UtcNow)
-        {
-            return new AuthenticationDTO {Errors = new[] {"This token hasn't expired yet"}};
-        }
+            if (expiryDateTimeUtc > DateTime.UtcNow)
+            {
+                return new AuthenticationDTO { Errors = new[] { "This token hasn't expired yet" } };
+            }
 
-        var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
+            var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
 
-        var storedRefreshToken = await _context.RefreshTokens.SingleOrDefaultAsync(x => x.Token == refreshToken);
+            var storedRefreshToken = await _context.RefreshTokens.SingleOrDefaultAsync(x => x.Token == refreshToken);
 
-        if (storedRefreshToken == null)
-        {
-            return new AuthenticationDTO {Errors = new[] {"This refresh token does not exist"}};
-        }
+            if (storedRefreshToken == null)
+            {
+                return new AuthenticationDTO { Errors = new[] { "This refresh token does not exist" } };
+            }
 
-        if (DateTime.UtcNow > storedRefreshToken.ExpiryDate)
-        {
-            return new AuthenticationDTO {Errors = new[] {"This refresh token has expired"}};
-        }
+            if (DateTime.UtcNow > storedRefreshToken.ExpiryDate)
+            {
+                return new AuthenticationDTO { Errors = new[] { "This refresh token has expired" } };
+            }
 
-        if (storedRefreshToken.Invalidated)
-        {
-            return new AuthenticationDTO {Errors = new[] {"This refresh token has been invalidated"}};
-        }
+            if (storedRefreshToken.Invalidated)
+            {
+                return new AuthenticationDTO { Errors = new[] { "This refresh token has been invalidated" } };
+            }
 
-        if (storedRefreshToken.Used)
-        {
-            return new AuthenticationDTO {Errors = new[] {"This refresh token has been used"}};
-        }
+            if (storedRefreshToken.Used)
+            {
+                return new AuthenticationDTO { Errors = new[] { "This refresh token has been used" } };
+            }
 
-        if (storedRefreshToken.JwtId != jti)
-        {
-            return new AuthenticationDTO {Errors = new[] {"This refresh token does not match this JWT"}};
-        }
+            if (storedRefreshToken.JwtId != jti)
+            {
+                return new AuthenticationDTO { Errors = new[] { "This refresh token does not match this JWT" } };
+            }
 
-        storedRefreshToken.Used = true;
-        _context.RefreshTokens.Update(storedRefreshToken);
-        await _context.SaveChangesAsync();
-        long id = Convert.ToInt64(validatedToken.Claims.Single(x => x.Type == "id").Value);
-        var user = GetUser(id);
-        return await GenerateAuthenticationResultForUserAsync(user);
+            storedRefreshToken.Used = true;
+            _context.RefreshTokens.Update(storedRefreshToken);
+            await _context.SaveChangesAsync();
+            long id = Convert.ToInt64(validatedToken.Claims.Single(x => x.Type == "id").Value);
+            var user = GetUser(id);
+            return await GenerateAuthenticationResultForUserAsync(user);
         }
         public UserDTO GetUser(long id)
         {
@@ -173,7 +173,8 @@ namespace FishersSite.Services
         {
             var comments = GetComments();
             var articles = _context.Articles.Include(a => a.User)
-            .Select(article => new ArticleDTO{
+            .Select(article => new ArticleDTO
+            {
                 Id = article.Id,
                 Title = article.Title,
                 Text = article.Text,
@@ -198,7 +199,8 @@ namespace FishersSite.Services
         {
             var comments = GetComments();
             var articles = _context.Articles.Include(a => a.User)
-            .Select(article => new ArticleDTO{
+            .Select(article => new ArticleDTO
+            {
                 Id = article.Id,
                 Title = article.Title,
                 Text = article.Text,
@@ -249,7 +251,11 @@ namespace FishersSite.Services
             if (user.Surname != null)
             {
                 existingUser.Surname = user.Surname;
-            }           
+            }
+            if (user.Username != null)
+            {
+                existingUser.Username = user.Username;
+            }
             _context.Attach(existingUser).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return GetUser(id);
@@ -311,7 +317,7 @@ namespace FishersSite.Services
             {
                 var tokenValidationParameters = _tokenValidationParameters.Clone();
                 tokenValidationParameters.ValidateLifetime = false;
-                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);                if (!IsJwtWithValidSecurityAlgorithm(validatedToken))
+                var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken); if (!IsJwtWithValidSecurityAlgorithm(validatedToken))
                 {
                     return null;
                 }
@@ -338,7 +344,7 @@ namespace FishersSite.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(ClaimTypes.Name, user.Username),
@@ -346,10 +352,10 @@ namespace FishersSite.Services
                     new Claim("id", user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.Add(_appSettings.TokenLifetime),
-                SigningCredentials = 
+                SigningCredentials =
                     new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);       
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
             var refreshToken = new RefreshToken
             {
@@ -361,7 +367,7 @@ namespace FishersSite.Services
 
             await _context.RefreshTokens.AddAsync(refreshToken);
             await _context.SaveChangesAsync();
-            
+
             return new AuthenticationDTO
             {
                 Success = true,

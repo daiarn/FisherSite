@@ -37,11 +37,11 @@ namespace FishersSite.Controllers
         public ActionResult<ArticleDTO> Get(int id)
         {
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
-            var userOwnsPost = _articleService.UserOwnsArticle(id, userId);
-            if (!userOwnsPost)
-            {
-                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
-            }
+            // var userOwnsPost = _articleService.UserOwnsArticle(id, userId);
+            // if (!userOwnsPost)
+            // {
+            //     return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
+            // }
             if (id <= 0)
             {
                 return NotFound();
@@ -59,11 +59,11 @@ namespace FishersSite.Controllers
         public ActionResult<IEnumerable<CommentDTO>> GetArticleComments(int id)
         {
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
-            var userOwnsPost = _articleService.UserOwnsArticle(id, userId);
-            if (!userOwnsPost)
-            {
-                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
-            }
+            // var userOwnsPost = _articleService.UserOwnsArticle(id, userId);
+            // if (!userOwnsPost)
+            // {
+            //     return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
+            // }
             var comments = _articleService.GetArticleComments(id);
             if (comments == null)
             {
@@ -77,11 +77,11 @@ namespace FishersSite.Controllers
         public ActionResult<CommentDTO> GetArticleComment(int articleId, int commentId)
         {
             var userId = HttpContext.User.Claims.Single(x => x.Type == "id").Value;
-            var userOwnsPost = _articleService.UserOwnsArticle(articleId, userId);
-            if (!userOwnsPost)
-            {
-                return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
-            }
+            // var userOwnsPost = _articleService.UserOwnsArticle(articleId, userId);
+            // if (!userOwnsPost)
+            // {
+            //     return BadRequest(new ErrorResponse(new ErrorModel { Message = "You do not own this article" }));
+            // }
             if (articleId <= 0 || commentId <= 0)
             {
                 return BadRequest();

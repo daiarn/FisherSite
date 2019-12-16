@@ -26,3 +26,17 @@ D:\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.AssemblyInfo.cs
 D:\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.RazorTargetAssemblyInfo.cache
 D:\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.dll
 D:\FishersSite\obj\Debug\netcoreapp2.2\FishersSite.pdb
+D:\FishersSite\Backend\bin\Debug\netcoreapp2.2\FishersSite.deps.json
+D:\FishersSite\Backend\bin\Debug\netcoreapp2.2\FishersSite.runtimeconfig.json
+D:\FishersSite\Backend\bin\Debug\netcoreapp2.2\FishersSite.runtimeconfig.dev.json
+D:\FishersSite\Backend\bin\Debug\netcoreapp2.2\FishersSite.dll
+D:\FishersSite\Backend\bin\Debug\netcoreapp2.2\FishersSite.pdb
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.csprojAssemblyReference.cache
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.csproj.CoreCompileInputs.cache
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.RazorAssemblyInfo.cache
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.RazorAssemblyInfo.cs
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.AssemblyInfoInputs.cache
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.AssemblyInfo.cs
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.RazorTargetAssemblyInfo.cache
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.dll
+D:\FishersSite\Backend\obj\Debug\netcoreapp2.2\FishersSite.pdb

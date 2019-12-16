@@ -126,7 +126,7 @@ class MyArticles extends Component {
                     </ModalFooter>
                 </Modal>
 
-                <table className="table">
+                <Table className="table">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -171,7 +171,7 @@ class MyArticles extends Component {
                             <tr></tr>
                         )}
                     </tbody>
-                </table>
+                </Table>
             </div>
         );
     }
